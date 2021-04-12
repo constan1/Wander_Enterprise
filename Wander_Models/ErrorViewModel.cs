@@ -1,9 +1,9 @@
-using System;
-
-namespace Wander.Models
+﻿
+namespace Wander_Models
 {
     public class ErrorViewModel
     {
+
         public string RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);

@@ -22,8 +22,20 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
+                       <li class="nav-item dropdown">
+                           <span class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Property Management
+                           </span>
+                           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                               <a class="dropdown-item" asp-area="" asp-controller="Property" asp-action="Index">Rental Properties</a>
+                               <a class="dropdown-item" asp-area="" asp-controller="Address" asp-action="Index">Addresses </a>
+                               
+
+                           </div>
+
+                       </li>
                     </ul>
                 </div>
             </div>
