@@ -15,6 +15,7 @@ using Wander_DataAccess;
 using Wander_DataAccess.Data;
 using Wander_DataAccess.Repository.IRepository;
 using Wander_DataAccess.Repository;
+using Wander_Utilities;
 
 
 
@@ -41,9 +42,15 @@ namespace Wander
 
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<IdentityUser,IdentityRole>()
+                .AddDefaultTokenProviders().AddDefaultUI()
+                .AddEntityFrameworkStores<ApplicationDBContext>();
+
 
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
+
+            services.Configure<StorageAccountOptions>(Configuration.GetSection("StorageAccount"));
 
             services.AddControllersWithViews();
 
@@ -69,8 +76,10 @@ namespace Wander
 
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

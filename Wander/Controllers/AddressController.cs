@@ -81,5 +81,38 @@ namespace Wander.Controllers
             }
             return View(obj);
         }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var obj = _addRepo.Find(id.GetValueOrDefault());
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePost(int? id)
+        {
+
+            var obj = _addRepo.Find(id.GetValueOrDefault());
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _addRepo.Remove(obj);
+            _addRepo.Save();
+            return RedirectToAction("Index");
+
+
+
+        }
+
     }
 }

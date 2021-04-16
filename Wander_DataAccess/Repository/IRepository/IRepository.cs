@@ -18,6 +18,12 @@ namespace Wander_DataAccess.Repository.IRepository
             bool isTracking = true
             );
 
+        public IEnumerable<T> GetAllAgentsListings(
+            Expression<Func<T, bool>> filter = null,
+            string includeProperties = null,
+            bool isTracking = true
+            );
+
         T FirstOrDefault(
             Expression<Func<T, bool>> filter = null,
             string includeProperties = null,

@@ -47,6 +47,9 @@
                     </div>
 
                 </div>
+
+                
+
                 <div class="form-group row py-2">
                     <div class="col-4">
                         <label asp-for="Property.Baths"></label>
@@ -73,11 +76,11 @@
                 </div>
                 <div class="form-group row py-2">
                     <div class="col-4">
-                        <label asp-for="Property.Description"></label>
+                        <label asp-for="Property.Detailed_Description"></label>
                     </div>
                     <div class="col-8">
-                        <input asp-for="Property.Description" class="form-control" />
-                        <span asp-validation-for="Property.Description" class="text danger">
+                        <textarea asp-for="Property.Detailed_Description" class="form-control summernote"> </textarea>
+                        <span asp-validation-for="Property.Detailed_Description" class="text danger">
 
                         </span>
                     </div>
@@ -127,11 +130,140 @@
 
                 </div>
 
-                <input type="submit" class="btn btn-primary w-100" />
+                <div class="form-group row py-2">
+                    <div class="col-4">
+                        Your Main Image Image
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox"  multiple class="form-control " />
+                       
+                      
+                    </div>
+                    <div class="col-4">
+                        Secondary Image
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox2"  multiple class="form-control " />
+                      
+                      
+                    </div>
+                    <div class="col-4">
+                        Third Image
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox3"  multiple class="form-control" />
+                      
+                    
+                    </div>
+                    <div class="col-4">
+                        Fourth Image
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox4"  multiple class="form-control" />
+                   
+                      
+                    </div>
+                    <div class="col-4">
+                        Fifth Image
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="uploadBox5" value="@Model.Property.Fifth_Image" multiple class="form-control" />
+                  
+                    </div>
+
+                </div>
+
+                <div class="form-group row py-2">
+
+                    <div class="col-8 offset-4 row">
+
+                        <div class="col">
+
+                            @if (Model.Property.Id != 0)
+                            {
+                                <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" value="Update" />
+                            }
+
+                            else
+                            {
+                                <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" />
+                            }
+                        </div>
+
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success w-100">
+                                Back
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
 
 
             </div>
 
+
+
         </div>
     </div>
 </form>
+
+@section Scripts{
+
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+
+        $(document).ready(function () {
+            $('.summernote').summernote({
+                height: 275
+            });
+        });
+
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload a main Image!',
+                    'error'
+                )
+                return false;
+            }
+            else if (document.getElementById("uploadBox2").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload a Secondary Image!',
+                    'error'
+                )
+                return false;
+            }
+            else if (document.getElementById("uploadBox3").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload a Third Image!',
+                    'error'
+                )
+                return false;
+            }
+            else if (document.getElementById("uploadBox4").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload a Fourth Image!',
+                    'error'
+                )
+                return false;
+            }
+            else if (document.getElementById("uploadBox5").value == "") {
+                Swal.fire(
+                    'Error!',
+                    'Please upload a Fifth  Image!',
+                    'error'
+                )
+                return false;
+            }
+            return true;
+        }
+    </script>
+}

@@ -17,11 +17,17 @@ namespace Wander_Models
         [Required]
         public string Name { get; set; }
 
+        [Display(Name="Short Description")]
         public string Description { get; set; }
+
+
+        [Display(Name = "Long Description")]
+        public string Detailed_Description { get; set; }
 
         public string Type { get; set; }
 
         [Display(Name="Address")]
+        [Required]
         public int AddressId { get; set; }
 
         [ForeignKey("AddressId")]
@@ -55,13 +61,18 @@ namespace Wander_Models
 
 
         [Display(Name = "Fourth Image")]
-       
+        
         public string Fourth_Image { get; set; }
 
 
         [Display(Name = "Fifth Image")]
-        
+       
         public string Fifth_Image { get; set; }
+
+        [Display(Name = "Agent ID")]
+
+        public string Agent_Id { get; set; }
+
 
 
 

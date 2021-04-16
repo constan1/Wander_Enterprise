@@ -249,6 +249,9 @@ namespace Wander_DataAccess.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Agent_Id")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Baths")
                         .HasColumnType("int");
 
@@ -256,6 +259,9 @@ namespace Wander_DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Detailed_Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Fifth_Image")
