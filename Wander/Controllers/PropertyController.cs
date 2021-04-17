@@ -82,12 +82,12 @@ namespace Wander.Controllers
         }
 
         [HttpPost]
-        public async Task< IActionResult> Upsert(PropertyVM propertyVM, string value, List<IFormFile> files, string blobContainer, string directoryName)
+        public async Task< IActionResult> Upsert(PropertyVM propertyVM, string value, string blobContainer, string directoryName)
         {
             if (ModelState.IsValid)
             {
 
-                BlobUtility blobUtility = new BlobUtility(_optionAccessor.Value.StorageAccountNameOption, _optionAccessor.Value.StorageAccountKeyOption);
+               
 
                 if (propertyVM.Property.Id == 0)
                 {
@@ -95,126 +95,33 @@ namespace Wander.Controllers
 
                     propertyVM.Property.Type = value;
 
-                    propertyVM.Property.Main_Image = files[0].FileName.Substring(files[0].FileName.LastIndexOf("\\") + 1);
-
-                    propertyVM.Property.Secondary_Image = files[1].FileName.Substring(files[1].FileName.LastIndexOf("\\") + 1);
-                    propertyVM.Property.Third_Image = files[2].FileName.Substring(files[2].FileName.LastIndexOf("\\") + 1);
-                    propertyVM.Property.Fourth_Image = files[3].FileName.Substring(files[3].FileName.LastIndexOf("\\") + 1);
-                    propertyVM.Property.Fifth_Image = files[4].FileName.Substring(files[4].FileName.LastIndexOf("\\") + 1);
+                  
 
                     propertyVM.Property.Agent_Id = _userManager.GetUserId(User);
 
-                    _propRepo.Add(propertyVM.Property);
+                  
 
-                    _propRepo.Save();
+                        
 
-                    blobContainer = "propertyimages";
-
-                    directoryName = "User " + propertyVM.Property.Id;
-
-                    CloudBlobContainer container = blobUtility.blobClient.GetContainerReference(blobContainer);
-
-                    for (var i = 0; i < files.Count; i++)
-                    {
-                        int fileNameStartLocation = files[i].FileName.LastIndexOf("\\") + 1;
-
-                        string fileName = files[i].FileName.Substring(fileNameStartLocation);
-
-                        await container.CreateIfNotExistsAsync();
-
-                        await container.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
-
-                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(directoryName +
-                            @"\" + fileName);
-
-                        blockBlob.Properties.ContentType = "image/jpg";
-
-                        System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
-
-
-                        MagickImage image = new MagickImage(files[i].OpenReadStream());
+                    var httpRequest = HttpContext.Request;
 
 
 
-                        await memoryStream.WriteAsync(image.ToByteArray(), 0, image.ToByteArray().Count());
+                    await AddToDbAndAzure(propertyVM, httpRequest);
 
-                        memoryStream.Position = 0;
 
-                        await blockBlob.UploadFromStreamAsync(memoryStream);
-
-                    }
 
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    blobContainer = "propertyimages";
 
-                    directoryName = "User " + propertyVM.Property.Id;
+                    await DeleteFromAzureAsync(propertyVM.Property.Id);
 
-                    CloudBlobContainer container = blobUtility.blobClient.GetContainerReference(blobContainer);
+                    var httpRequest = HttpContext.Request;
 
+                    await UpdateToDbAndAzure(propertyVM, httpRequest);
 
-                    CloudBlockBlob blockBlob_0 = container.GetBlockBlobReference(directoryName +
-                                    @"\" +_propRepo.FirstOrDefault(u=>u.Id == propertyVM.Property.Id, null,false).Main_Image);
-                    CloudBlockBlob blockBlob1 = container.GetBlockBlobReference(directoryName +
-                                    @"\" + _propRepo.FirstOrDefault(u => u.Id == propertyVM.Property.Id, null, false).Secondary_Image);
-                    CloudBlockBlob blockBlob2 = container.GetBlockBlobReference(directoryName +
-                                    @"\" + _propRepo.FirstOrDefault(u => u.Id == propertyVM.Property.Id, null, false).Third_Image);
-                    CloudBlockBlob blockBlob3 = container.GetBlockBlobReference(directoryName +
-                                    @"\" + _propRepo.FirstOrDefault(u => u.Id == propertyVM.Property.Id, null, false).Fourth_Image);
-                    CloudBlockBlob blockBlob4 = container.GetBlockBlobReference(directoryName +
-                                    @"\" + _propRepo.FirstOrDefault(u => u.Id == propertyVM.Property.Id, null, false).Fifth_Image);
-
-                    await blockBlob_0.DeleteIfExistsAsync();
-                    await blockBlob1.DeleteIfExistsAsync();
-                    await blockBlob2.DeleteIfExistsAsync();
-                    await blockBlob3.DeleteIfExistsAsync();
-                    await  blockBlob4.DeleteIfExistsAsync();
-
-                    propertyVM.Property.Main_Image = files[0].FileName.Substring(files[0].FileName.LastIndexOf("\\") + 1);
-
-                    propertyVM.Property.Secondary_Image = files[1].FileName.Substring(files[1].FileName.LastIndexOf("\\") + 1);
-                    propertyVM.Property.Third_Image = files[2].FileName.Substring(files[2].FileName.LastIndexOf("\\") + 1);
-                    propertyVM.Property.Fourth_Image = files[3].FileName.Substring(files[3].FileName.LastIndexOf("\\") + 1);
-                    propertyVM.Property.Fifth_Image = files[4].FileName.Substring(files[4].FileName.LastIndexOf("\\") + 1);
-
-                    propertyVM.Property.Agent_Id = _userManager.GetUserId(User);
-                    propertyVM.Property.Type = value;
-
-                    _propRepo.Update(propertyVM.Property);
-
-
-
-                    for (var i = 0; i < files.Count; i++)
-                    {
-                        int fileNameStartLocation = files[i].FileName.LastIndexOf("\\") + 1;
-
-                        string fileName = files[i].FileName.Substring(fileNameStartLocation);
-
-                        await container.CreateIfNotExistsAsync();
-
-                        await container.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
-
-                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(directoryName +
-                            @"\" + fileName);
-
-                        blockBlob.Properties.ContentType = "image/jpg";
-
-                        System.IO.MemoryStream memoryStream = new System.IO.MemoryStream();
-
-
-                        MagickImage image = new MagickImage(files[i].OpenReadStream());
-
-
-
-                        await memoryStream.WriteAsync(image.ToByteArray(), 0, image.ToByteArray().Count());
-
-                        memoryStream.Position = 0;
-
-                        await blockBlob.UploadFromStreamAsync(memoryStream);
-
-                    }
                 }
 
                 _propRepo.Save();
@@ -224,6 +131,144 @@ namespace Wander.Controllers
             
             return View(propertyVM);
         }
+
+        private async Task UploadToAzureAsync(IFormFile file, int Id)
+        {
+            BlobUtility blobUtility = new BlobUtility(_optionAccessor.Value.StorageAccountNameOption, _optionAccessor.Value.StorageAccountKeyOption);
+
+
+            string directoryName = "User " + Id;
+
+            CloudBlobContainer container = blobUtility.blobClient.GetContainerReference("propertyimages");
+
+            if(await container.CreateIfNotExistsAsync())
+            {
+                await container.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+            }
+
+            var cloudBlockBlob = container.GetBlockBlobReference(directoryName + @"\" + file.FileName);
+            cloudBlockBlob.Properties.ContentType = file.ContentType;
+
+            await cloudBlockBlob.UploadFromStreamAsync(file.OpenReadStream());
+
+        }
+
+        private async Task DeleteFromAzureAsync(int Id)
+        {
+            BlobUtility blobUtility = new BlobUtility(_optionAccessor.Value.StorageAccountNameOption, _optionAccessor.Value.StorageAccountKeyOption);
+            string directoryName = "User " + Id;
+
+            CloudBlobContainer container = blobUtility.blobClient.GetContainerReference("propertyimages");
+
+            var Main_Image_Blob = container.GetBlockBlobReference(directoryName + @"\" + _propRepo.FirstOrDefault(u => u.Id == Id, null, false).Main_Image);
+            var Second_Image_Blob = container.GetBlockBlobReference(directoryName + @"\" + _propRepo.FirstOrDefault(u => u.Id == Id, null, false).Secondary_Image);
+            var Third_Image_Blob = container.GetBlockBlobReference(directoryName + @"\" + _propRepo.FirstOrDefault(u => u.Id == Id, null, false).Third_Image);
+            var Fourth_Image_Blob = container.GetBlockBlobReference(directoryName + @"\" + _propRepo.FirstOrDefault(u => u.Id == Id, null, false).Fourth_Image);
+            var Fifth_Image_Blob = container.GetBlockBlobReference(directoryName + @"\" + _propRepo.FirstOrDefault(u => u.Id == Id, null, false).Fifth_Image);
+
+            await Main_Image_Blob.DeleteIfExistsAsync();
+            await Second_Image_Blob.DeleteIfExistsAsync();
+            await Third_Image_Blob.DeleteIfExistsAsync();
+            await Fourth_Image_Blob.DeleteIfExistsAsync();
+            await Fifth_Image_Blob.DeleteIfExistsAsync();
+
+
+
+
+        }
+
+        private async Task AddToDbAndAzure(PropertyVM propertyVM, HttpRequest httpreq)
+        {
+            var httpRequest = httpreq;
+
+
+
+
+            List<string> filelist = new List<string>();
+
+            if (httpRequest.Form.Files.Count > 0)
+            {
+
+                foreach (var file in httpRequest.Form.Files)
+                {
+                    string fileName = file.FileName.Substring(file.FileName.LastIndexOf("\\") + 1);
+                    filelist.Add(fileName);
+                }
+                propertyVM.Property.Main_Image = filelist[0];
+                propertyVM.Property.Secondary_Image = filelist[1];
+                propertyVM.Property.Third_Image = filelist[2];
+                propertyVM.Property.Fourth_Image = filelist[3];
+                propertyVM.Property.Fifth_Image = filelist[4];
+
+                _propRepo.Add(propertyVM.Property);
+
+                _propRepo.Save();
+
+
+                foreach (var file in httpRequest.Form.Files)
+                {
+                    string fileName = file.FileName.Substring(file.FileName.LastIndexOf("\\") + 1);
+
+
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+
+                        await UploadToAzureAsync(file, propertyVM.Property.Id);
+
+                    }
+
+
+                }
+
+            }
+        }
+        private async Task UpdateToDbAndAzure(PropertyVM propertyVM, HttpRequest httpreq)
+        {
+            var httpRequest = httpreq;
+
+
+
+
+            List<string> filelist = new List<string>();
+
+            if (httpRequest.Form.Files.Count > 0)
+            {
+
+                foreach (var file in httpRequest.Form.Files)
+                {
+                    string fileName = file.FileName.Substring(file.FileName.LastIndexOf("\\") + 1);
+                    filelist.Add(fileName);
+                }
+                propertyVM.Property.Main_Image = filelist[0];
+                propertyVM.Property.Secondary_Image = filelist[1];
+                propertyVM.Property.Third_Image = filelist[2];
+                propertyVM.Property.Fourth_Image = filelist[3];
+                propertyVM.Property.Fifth_Image = filelist[4];
+
+                _propRepo.Update(propertyVM.Property);
+
+
+
+                foreach (var file in httpRequest.Form.Files)
+                {
+                    string fileName = file.FileName.Substring(file.FileName.LastIndexOf("\\") + 1);
+
+
+
+                    using (var memoryStream = new MemoryStream())
+                    {
+
+                        await UploadToAzureAsync(file, propertyVM.Property.Id);
+
+                    }
+
+
+                }
+
+            }
+        }
+
 
         [HttpGet]
         public IActionResult Delete(int? id)
@@ -279,7 +324,7 @@ namespace Wander.Controllers
 
             _propRepo.Remove(obj);
             _propRepo.Save();
-                return RedirectToAction("Index");
+               return RedirectToAction("Index");
 
         }
 
