@@ -1,6 +1,8 @@
 ﻿@model Wander_Models.ViewModels.PropertyVM
 @using Wander_Utilities
 
+<!--All Code By Andrei Constantinescu-->
+
 @{
     var title = "Create Product";
 
@@ -48,7 +50,7 @@
 
                 </div>
 
-                
+
 
                 <div class="form-group row py-2">
                     <div class="col-4">
@@ -135,40 +137,41 @@
                         Your Main Image Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox"  multiple class="form-control " />
-                       
-                      
+                        <input required type="file" name="files" id="uploadBox" multiple class="form-control " />
+                        
+
+
                     </div>
                     <div class="col-4">
                         Secondary Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox2"  multiple class="form-control " />
-                      
-                      
+                        <input required type="file" name="files" id="uploadBox2" multiple class="form-control " />
+
+
                     </div>
                     <div class="col-4">
                         Third Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox3"  multiple class="form-control" />
-                      
-                    
+                        <input required type="file" name="files" id="uploadBox3" multiple class="form-control" />
+
+
                     </div>
                     <div class="col-4">
                         Fourth Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox4"  multiple class="form-control" />
-                   
-                      
+                        <input required type="file" name="files" id="uploadBox4" multiple class="form-control" />
+
+
                     </div>
                     <div class="col-4">
                         Fifth Image
                     </div>
                     <div class="col-8">
-                        <input type="file" name="files" id="uploadBox5" value="@Model.Property.Fifth_Image" multiple class="form-control" />
-                  
+                        <input required type="file" name="files" id="uploadBox5" value="@Model.Property.Fifth_Image" multiple class="form-control" />
+
                     </div>
 
                 </div>
@@ -209,6 +212,7 @@
     </div>
 </form>
 
+
 @section Scripts{
 
     @{
@@ -222,15 +226,27 @@
             });
         });
 
+
+        function stopUpdatingProgressInidicator() {
+            clearInterval(intervalId);
+        }
+
+
         function validateInput() {
             if (document.getElementById("uploadBox").value == "") {
+
+
                 Swal.fire(
                     'Error!',
-                    'Please upload a main Image!',
+                    'Please upload a Main Image!',
                     'error'
                 )
-                return false;
-            }
+                       }
+
+
+
+
+
             else if (document.getElementById("uploadBox2").value == "") {
                 Swal.fire(
                     'Error!',
@@ -252,6 +268,7 @@
                     'Error!',
                     'Please upload a Fourth Image!',
                     'error'
+
                 )
                 return false;
             }
@@ -263,7 +280,28 @@
                 )
                 return false;
             }
-            return true;
+            else {
+
+
+                Swal.fire({
+
+                    title: 'Please Wait While We Upload Your Images!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+
+                    html: "<div class='progress_main'><div class='progress-value'></div></div>",
+
+                }).then((data) => {
+
+
+
+                });
+                return true;
+            }
+
+
         }
     </script>
 }

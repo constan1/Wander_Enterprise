@@ -20,6 +20,8 @@ using Wander_Models;
 using Wander_Models.ViewModels;
 using Wander_Utilities;
 
+/* All Code By Andrei Constantinescu
+ */
 namespace Wander.Controllers
 {
 
@@ -122,7 +124,10 @@ namespace Wander.Controllers
 
                     await UpdateToDbAndAzure(propertyVM, httpRequest);
 
+                   
+
                 }
+
 
                 _propRepo.Save();
                 return RedirectToAction("Index");
@@ -293,6 +298,7 @@ namespace Wander.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
+      
 
             string blobContainer = "propertyimages";
             string directoryName = "User " + id;

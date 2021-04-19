@@ -1,1 +1,170 @@
-﻿<h1>Details view</h1>
+﻿
+@model Wander_Models.ViewModels.DetailsVM
+@using Wander_Utilities
+
+<!--All Code By Andrei Constantinescu-->
+<div class="">
+    <form method="post">
+        <input asp-for="@Model.Property.Id" hidden />
+
+        <div class="backgroundWhite pt-4">
+
+
+
+
+            <div class="card" style="border:1px solid #000000; ">
+                <div class="card-header bg-dark text-light ml-0 row container" style="border-radius: 0px;">
+                    <div class="col-12 col-md-6">
+                        <h1 class="text-white">@Model.Property.Name</h1>
+                    </div>
+                    <div class="col-12 col-md-6 text-md-right">
+                        <h1 class="text-warning"> $@Model.Property.Price/Month</h1>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <section>
+                        <div class="container">
+                            <div class="carousel">
+                                <input type="radio" name="slides" checked="checked" id="slide-1">
+                                <input type="radio" name="slides" id="slide-2">
+                                <input type="radio" name="slides" id="slide-3">
+                                <input type="radio" name="slides" id="slide-4">
+                                <input type="radio" name="slides" id="slide-5">
+                                <input type="radio" name="slides" id="slide-6">
+
+
+
+
+                                <ul class="carousel__slides">
+                                    <li class="carousel__slide">
+                                        <figure>
+                                            <div>
+                                                <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Main_Image" alt="">
+                                            </div>
+
+                                        </figure>
+                                    </li>
+                                    <li class="carousel__slide">
+                                        <figure>
+                                            <div>
+                                                <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Secondary_Image" alt="">
+                                            </div>
+
+                                        </figure>
+                                    </li>
+                                    <li class="carousel__slide">
+                                        <figure>
+                                            <div>
+                                                <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Third_Image" alt="">
+                                            </div>
+
+                                        </figure>
+                                    </li>
+                                    <li class="carousel__slide">
+                                        <figure>
+                                            <div>
+                                                <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Fourth_Image" alt="">
+                                            </div>
+
+                                        </figure>
+                                    </li>
+                                    <li class="carousel__slide">
+                                        <figure>
+                                            <div>
+                                                <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Fifth_Image" alt="">
+                                            </div>
+
+                                        </figure>
+                                    </li>
+
+                                </ul>
+
+
+                                <ul class="carousel__thumbnails">
+                                    <li>
+                                        <label for="slide-1"> <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Main_Image" alt=""></label>
+                                    </li>
+                                    <li>
+                                        <label for="slide-2"> <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Secondary_Image" alt=""></label>
+                                    </li>
+                                    <li>
+                                        <label for="slide-3"> <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Third_Image" alt=""></label>
+                                    </li>
+                                    <li>
+                                        <label for="slide-4"> <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Fourth_Image" alt=""></label>
+                                    </li>
+                                    <li>
+                                        <label for="slide-5"> <img src="https://wander.blob.core.windows.net/propertyimages/User @Model.Property.Id/@Model.Property.Fifth_Image" alt=""></label>
+                                    </li>
+
+
+                                </ul>
+
+
+                            </div>
+                            <hr>
+                            <div>
+
+                       
+                                <p class="text-secondary">@Html.Raw(Model.Property.Detailed_Description)</p>
+
+                            </div>
+                            <hr />
+                            <div class="detail-bod">
+
+
+                                <div class="detail-bath-bed">
+                                    <div class="detail-beds">
+                                        <div>  Beds  </div>
+                                        <div> @Model.Property.Beds</div>
+                                    </div>
+
+                                    <div class="detail-baths">
+                                        <div>  Bath </div>
+                                        <div> @Model.Property.Baths</div>
+                                    </div>
+
+                                </div>
+
+                                <div class="detail-sqft-bod">
+
+                                    <div class="detail-sqft">
+                                        <div>  sqft </div>
+                                        <div> @Model.Property.Size</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+                </div>
+                <div class="card-footer bg-dark">
+                    <div class="row">
+                        <div class="col-12 col-md-6 pb-1 ">
+                            <a class="btn btn-danger btn-square form-control btn-lg" style="height:50px;" asp-action="Index">Back to List</a>
+                        </div>
+                        <div class="col-12 col-md-6 ">
+
+
+
+
+                            <div> <a asp-controller="RentalInquiry" asp-action="InquirySummary" asp-route-id="@Model.Property.Id" class="btn btn-green form-control btn-lg" style="height:50px">Interested</a> </div>
+
+
+                           
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+
+} 

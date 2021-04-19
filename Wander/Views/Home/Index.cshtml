@@ -1,7 +1,7 @@
 ﻿@model Wander_Models.ViewModels.HomeViewModel
 @using Wander_Utilities
 
-
+<!--All Code By Andrei Constantinescu-->
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -9,45 +9,45 @@
 
     <br /><br />
 
-          <div class="upper">
-
-              
-                  <div>
-                      Search
-
-                  </div>
-                  <div>
-                      <input type="search" />
-                  </div>
-            
-
-           
-                  <div>
-                      Category
-
-                  </div>
-                  <div>
-                      <select class="form-select" name="value">
-                          <option value="Condo">Condo</option>
-                          <option value="Apartment">Apartment</option>
-                          <option value="House">House]</option>
-                          <option value="Vacation Home">Vacation Home </option>
+    <div class="upper">
 
 
-                          <option disabled selected>--Select Category--</option>
-                      </select>
+        <div>
+            Search
 
-                  </div>
+        </div>
+        <div>
+            <input type="search" />
+        </div>
 
-              
 
-              <div class="Sub">
-                  <div><input type="submit" /></div>
-              </div>
 
-         
-        
-      
+        <div>
+            Category
+
+        </div>
+        <div>
+            <select class="form-select" name="value">
+                <option value="Condo">Condo</option>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House]</option>
+                <option value="Vacation Home">Vacation Home </option>
+
+
+                <option disabled selected>--Select Category--</option>
+            </select>
+
+        </div>
+
+
+
+        <div class="Sub">
+            <div><input type="submit" /></div>
+        </div>
+
+
+
+
     </div>
 
 
@@ -65,8 +65,8 @@
                         <div class="col-5"><label class="float-right"><span class="text-black-50 h5">@string.Format("{0:c0}", prop.Price)</span> / Month</label> </div>
                     </div>
                     <div>
-             
-                        <img class="card-img-top img-fluid d-block mx-auto mb-3" src="https://wander.blob.core.windows.net/propertyimages/User @prop.Id/@prop.Main_Image" alt="Card image cap">
+
+                        <img class="card-img-top img-fluid d-block mx-auto mb-3" src="https://wander.blob.core.windows.net/propertyimages/User @prop.Id/@prop.Main_Image" width="450" alt="Card image cap">
                     </div>
                     <div class="card-body p-1 px-3 row">
 

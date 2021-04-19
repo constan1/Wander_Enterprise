@@ -44,31 +44,32 @@ namespace Wander_Models
         public double Price { get; set; }
 
 
-
+        
         [Display(Name = "Main Image")]
         
         public string Main_Image { get; set; }
 
-
+       
         [Display(Name = "Secondary Image")]
         
         public string Secondary_Image { get; set; }
 
-
+       
         [Display(Name = "Third Image")]
         
         public string Third_Image { get; set; }
 
-
+       
         [Display(Name = "Fourth Image")]
         
         public string Fourth_Image { get; set; }
 
-
+        
         [Display(Name = "Fifth Image")]
        
         public string Fifth_Image { get; set; }
 
+        
         [Display(Name = "Agent ID")]
 
         public string Agent_Id { get; set; }

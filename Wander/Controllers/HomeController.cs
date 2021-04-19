@@ -12,6 +12,10 @@ using Wander_Models;
 using Wander_Models.ViewModels;
 using Wander_Utilities;
 
+
+/* All Code By Andrei Constantinescu
+ */
+
 namespace Wander.Controllers
 {
     public class HomeController : Controller
@@ -27,7 +31,8 @@ namespace Wander.Controllers
             _optionAccessor = optionAccessor;
         }
 
-      
+      //This will pass the HomeVM object to the Index view via middleware.
+
         public IActionResult Index()
         {
           
@@ -47,13 +52,34 @@ namespace Wander.Controllers
         }
 
 
-
-        public IActionResult Details()
+        [HttpGet]
+        public IActionResult Details(int? id)
         {
-            return View();
+
+            DetailsVM DetailsVM = new DetailsVM()
+            {
+               Property = _propRepo.FirstOrDefault(u => u.Id == id, includeProperties: "Address"),
+               
+            };
+
+            return View(DetailsVM);
         }
 
-  
-     
+
+        [HttpPost, ActionName("Details")]
+        public IActionResult DetailsPost(int? id)
+        {
+            
+            DetailsVM DetailsVM = new DetailsVM()
+            {
+                Property = _propRepo.FirstOrDefault(u => u.Id == id, includeProperties: "Address"),
+
+            };
+
+            return View(DetailsVM);
+        }
+
+
+
     }
 }
