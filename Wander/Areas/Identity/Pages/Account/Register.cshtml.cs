@@ -77,7 +77,7 @@ namespace Wander.Areas.Identity.Pages.Account
             if(!await _roleManager.RoleExistsAsync(WC.AgentRole))
             {
                 await _roleManager.CreateAsync(new IdentityRole(WC.AgentRole));
-                await _roleManager.CreateAsync(new IdentityRole(WC.CustomerRole));
+                
 
             }
             ReturnUrl = returnUrl;

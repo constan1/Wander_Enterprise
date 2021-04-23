@@ -16,7 +16,7 @@ namespace Wander_Utilities
         public const string Type = "Type";
 
         public static string AgentRole = "Agent";
-        public const string CustomerRole = "CustomerRole";
+        
 
     }
 }

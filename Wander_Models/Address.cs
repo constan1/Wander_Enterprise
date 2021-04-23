@@ -20,7 +20,12 @@ namespace Wander_Models
         [Required]
         public string Province { get; set; }
 
-       
+        [Display(Name = "Agent ID")]
+
+        public string Agent_Id { get; set; }
+
+
+
 
 
     }

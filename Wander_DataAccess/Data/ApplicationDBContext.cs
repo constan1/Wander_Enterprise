@@ -16,6 +16,7 @@ namespace Wander_DataAccess.Data
 
         public DbSet<Property>Property { get; set; }
 
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
    
     }

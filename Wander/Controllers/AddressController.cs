@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,19 @@ namespace Wander.Controllers
     public class AddressController : Controller
 
     {
-
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IAddressRepository _addRepo;
 
-        public AddressController(IAddressRepository addRepo)
+        public AddressController(IAddressRepository addRepo, UserManager<IdentityUser>userManager)
         {
+
+            _userManager = userManager;
             _addRepo = addRepo;
 
         }
         public IActionResult Index()
         {
-            IEnumerable<Address> obList = _addRepo.GetAll();
+            IEnumerable<Address> obList = _addRepo.GetAll(u=>u.Agent_Id ==_userManager.GetUserId(User));
 
             return View(obList);
         }
@@ -39,6 +42,8 @@ namespace Wander.Controllers
         {
             if(ModelState.IsValid)
             {
+                obj.Agent_Id = _userManager.GetUserId(User);
+
                 _addRepo.Add(obj);
                 _addRepo.Save();
 

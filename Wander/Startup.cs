@@ -17,9 +17,6 @@ using Wander_DataAccess.Repository.IRepository;
 using Wander_DataAccess.Repository;
 using Wander_Utilities;
 
-
-
-
 // All Code By Andrei Constantinescu
 namespace Wander
 {
@@ -31,7 +28,7 @@ namespace Wander
         }
 
         public IConfiguration Configuration { get; }
-        public static int Progress { get; set; }
+  
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -50,6 +47,7 @@ namespace Wander
 
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IPropertyRepository, PropertyRepository>();
+            services.AddScoped<IOrderDetailsRepository, OrderDetailRepository>();
 
             services.Configure<StorageAccountOptions>(Configuration.GetSection("StorageAccount"));
 

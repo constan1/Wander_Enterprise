@@ -49,11 +49,11 @@ namespace Wander.Controllers
         }
         public IActionResult Index()
         {
-
             IEnumerable<Property> obList = _propRepo.GetAll(u => u.Agent_Id == _userManager.GetUserId(User), includeProperties: "Address");
 
             return View(obList);
         }
+
 
         [HttpGet]
         public IActionResult Upsert(int? id)
@@ -63,7 +63,7 @@ namespace Wander.Controllers
             PropertyVM propertyVM = new PropertyVM()
             {
                 Property = new Property(),
-                AddressList = _propRepo.GetAllDropDown(WC.Address),
+                AddressList = _propRepo.GetAllDropDown(WC.Address,u=>u.Agent_Id == _userManager.GetUserId(User)),
                 Type_ = segmentList
 
             };
