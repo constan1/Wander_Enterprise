@@ -104,10 +104,7 @@
                             </div>
                             <hr>
                             <div>
-
-                       
                                 <p class="text-secondary">@Html.Raw(Model.Property.Detailed_Description)</p>
-
                             </div>
                             <hr />
                             <div class="detail-bod">
@@ -126,14 +123,7 @@
 
                                 </div>
 
-                                <div class="detail-sqft-bod">
-
-                                    <div class="detail-sqft">
-                                        <div>  sqft </div>
-                                        <div> @Model.Property.Size</div>
-                                    </div>
-
-                                </div>
+                                
                             </div>
 
                         </div>
@@ -145,15 +135,7 @@
                             <a class="btn btn-danger btn-square form-control btn-lg" style="height:50px;" asp-action="Index">Back to List</a>
                         </div>
                         <div class="col-12 col-md-6 ">
-
-
-
-
                             <div> <a asp-controller="RentalInquiry" asp-action="InquirySummary" asp-route-id="@Model.Property.Id" class="btn btn-green form-control btn-lg" style="height:50px">Interested</a> </div>
-
-
-                           
-
                         </div>
                     </div>
                 </div>
@@ -165,6 +147,4 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-
-
 } 

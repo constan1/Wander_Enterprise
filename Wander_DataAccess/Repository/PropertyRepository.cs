@@ -40,7 +40,7 @@ namespace Wander_DataAccess.Repository
                 {
                     slc.Add(new SelectListItem
                     {
-                        Text = query.ToList()[i].Street + ",," + query.ToList()[i].City + "," + query.ToList()[i].Province,
+                        Text = query.ToList()[i].Street + "," + query.ToList()[i].City + "," + query.ToList()[i].Province,
                         Value = query.ToList()[i].Id.ToString()
                     });
                 }

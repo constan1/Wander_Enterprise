@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -21,29 +22,49 @@ namespace Wander.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IPropertyRepository _propRepo;
         private readonly IOptions<StorageAccountOptions> _optionAccessor;
 
-        public HomeController(ILogger<HomeController> logger, IPropertyRepository propRepo, IOptions<StorageAccountOptions> optionAccessor)
+        public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, IPropertyRepository propRepo, IOptions<StorageAccountOptions> optionAccessor)
         {
             _logger = logger;
+            _userManager = userManager;
             _propRepo = propRepo;
             _optionAccessor = optionAccessor;
         }
 
       //This will pass the HomeVM object to the Index view via middleware.
 
+
+        public IActionResult IntroductoryPage()
+        {
+           
+                return View();
+        
+        }
         public IActionResult Index()
         {
-          
-            HomeViewModel HomeVM = new HomeViewModel()
+            if (User.IsInRole("Agent"))
             {
-                Properties = _propRepo.GetAll(includeProperties: "Address"),
-           
+
+                HomeViewModel HomeVM = new HomeViewModel()
+                {
+
+                    Properties = _propRepo.GetAll(u => u.Agent_Id == _userManager.GetUserId(User), includeProperties: "Address")
+                };
+                return View(HomeVM);
+            }
+            else
+            {
+                HomeViewModel HomeVM = new HomeViewModel()
+                {
+
+                    Properties = _propRepo.GetAll(includeProperties: "Address")
             };
+                return View(HomeVM);
+            }
 
-
-            return View(HomeVM);
         }
 
         public IActionResult About()

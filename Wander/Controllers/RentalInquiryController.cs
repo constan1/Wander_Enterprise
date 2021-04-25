@@ -30,27 +30,13 @@ namespace Wander.Controllers
 
         }
 
-        public IActionResult Index(string searchName=null, string searchEmail = null, string searchPhone = null)
+        public IActionResult Index()
         {
-            OrderVM orderVm = new OrderVM()
-            {
-                OrderDetails = _orderRepo.GetAll(u => u.Agent_Id == _userManager.GetUserId(User), includeProperties: "Property")
-        };
+            
 
-            if(!string.IsNullOrEmpty(searchName))
-            {
-                orderVm.OrderDetails = orderVm.OrderDetails.Where(u => u.Name.ToLower().Contains(searchName.ToLower()));
-            }
-            if (!string.IsNullOrEmpty(searchEmail))
-            {
-                orderVm.OrderDetails = orderVm.OrderDetails.Where(u => u.Email.ToLower().Contains(searchName.ToLower()));
-            }
-            if (!string.IsNullOrEmpty(searchPhone))
-            {
-                orderVm.OrderDetails = orderVm.OrderDetails.Where(u => u.PhoneNumber.ToLower().Contains(searchName.ToLower()));
-            }
 
-            return View(orderVm);
+            return View();
+        
         }
         public IActionResult InquirySummary(int? id)
         {
@@ -82,10 +68,9 @@ namespace Wander.Controllers
                 Name = Name,
                 PhoneNumber = PhoneNum,
                 Email = Email_,
+                City = City_,
                 PropertyId = detailsVM.Property.Id,
                 Agent_Id = detailsVM.Property.Agent_Id
-               
-                
             };
             _orderRepo.Add(orderDetails);
             _orderRepo.Save();
@@ -94,7 +79,23 @@ namespace Wander.Controllers
 
         public IActionResult Details(int? id)
         {
-            return View();
+            OrderVM orderVm = new OrderVM()
+            {
+                orderDetails = _orderRepo.FirstOrDefault(u => u.Id == id, includeProperties: "Property")
+            };
+
+            return View(orderVm);
         }
+
+
+        #region API CALLS
+
+        [HttpGet]
+        public IActionResult GetInquiryList()
+        {
+            return Json(new { data = _orderRepo.GetAll(u => u.Agent_Id == _userManager.GetUserId(User))});
+        }
+        #endregion
     }
 }
+

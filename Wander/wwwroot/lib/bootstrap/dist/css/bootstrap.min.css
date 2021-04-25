@@ -195,6 +195,35 @@ section {
     margin: 0 -10px;
 }
 
+/*Introductory Page Typography*/
+
+
+.Section-1 {
+    border-style: solid;
+    border-width: 2px;
+}
+.Hollow-Bod {
+    border-style: solid;
+    border-width: 2px;
+}
+.Input-Type-Address {
+    border-style: solid;
+    border-width: 2px;
+}
+.type-1{
+    border-style:solid;
+    border-width:2px;
+
+}
+.type-2 {
+    border-style: solid;
+    border-width: 2px;
+}
+.type-3 {
+    border-style: solid;
+    border-width: 2px;
+}
+
 .carousel__slides + .carousel__thumbnails {
     margin-top: 20px;
 }

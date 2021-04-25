@@ -10,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Simple.ImageResizer;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -99,6 +101,8 @@ namespace Wander.Controllers
 
                   
 
+                    //Instantiates the Agents Id with the user identity of the state(Scoped).
+
                     propertyVM.Property.Agent_Id = _userManager.GetUserId(User);
 
                   
@@ -139,6 +143,8 @@ namespace Wander.Controllers
 
         private async Task UploadToAzureAsync(IFormFile file, int Id)
         {
+
+         
             BlobUtility blobUtility = new BlobUtility(_optionAccessor.Value.StorageAccountNameOption, _optionAccessor.Value.StorageAccountKeyOption);
 
 

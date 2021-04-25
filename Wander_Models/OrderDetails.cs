@@ -27,6 +27,8 @@ namespace Wander_Models
 
         public string Email { get; set; }
 
+        public string City { get; set; }
+
         [Display(Name = "Agent ID")]
 
         public string Agent_Id { get; set; }

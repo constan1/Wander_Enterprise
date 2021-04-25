@@ -8,6 +8,7 @@ namespace Wander_Models.ViewModels
 {
   public class OrderVM
     {
+       public OrderDetails orderDetails { get; set; }
         public IEnumerable<OrderDetails> OrderDetails { get; set; }
 
     }
