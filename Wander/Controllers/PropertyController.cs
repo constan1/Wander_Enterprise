@@ -124,6 +124,8 @@ namespace Wander.Controllers
 
                     await DeleteFromAzureAsync(propertyVM.Property.Id);
 
+                    propertyVM.Property.Agent_Id = _userManager.GetUserId(User);
+
                     var httpRequest = HttpContext.Request;
 
                     await UpdateToDbAndAzure(propertyVM, httpRequest);

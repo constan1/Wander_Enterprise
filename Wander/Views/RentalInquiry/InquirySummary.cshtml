@@ -1,17 +1,18 @@
 ﻿
-
 @model Wander_Models.ViewModels.DetailsVM
-
 @using Wander_Utilities
 
 
+
+
+<div class="container">
 
 
 <form method="post">
     <input asp-for="Property.Id" hidden />
     <input asp-for="Property.Agent_Id" hidden />
     <br />
-    <div class="backgroundWhiteBorder">
+    <div class="container backgroundWhiteBorder">
         <div class="container">
             <div class="card">
                 <div class="card-header bg-dark text-light ml-0 row container">
@@ -20,7 +21,7 @@
                         Inquiry Summary
                     </div>
                     <div class="col-6 text-right">
-                        <a class="btn btn-outline-info btn-sm" asp-action="Index">Back to Listings</a>
+                        <a class="btn btn-outline-info btn-sm" asp-controller="Home" asp-action="Index">Back to Listings</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -133,7 +134,7 @@
 
 </form>
 
-
+    </div>
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
@@ -144,7 +145,7 @@
             var app_phone = document.getElementById("PhoneNumber").value;
             var app_Email = document.getElementById("Email").value;
             var app_City = document.getElementById("City").value;
-           
+
 
             if (app_name.toString() == '') {
                 Swal.fire({
@@ -183,7 +184,7 @@
                 })
                 return false
             }
-           
+
             return true;
         }
 

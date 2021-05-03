@@ -3,126 +3,129 @@
 
 <!--All Code By Andrei Constantinescu-->
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div class="container">
 
 
-    <br /><br />
-
-    @if (!User.IsInRole("Agent"))
-    {
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
 
 
-    <div class="upper">
+        <br /><br />
 
-
-        <div>
-            Search
-
-        </div>
-        <div>
-            <input type="search" />
-        </div>
-
-
-
-        <div>
-            Category
-
-        </div>
-        <div>
-            <select class="form-select" name="value">
-                <option value="Condo">Condo</option>
-                <option value="Apartment">Apartment</option>
-                <option value="House">House]</option>
-                <option value="Vacation Home">Vacation Home </option>
-
-
-                <option disabled selected>--Select Category--</option>
-            </select>
-
-        </div>
-
-
-
-        <div class="Sub">
-            <div><input type="submit" /></div>
-        </div>
-
-
-
-
-    </div>
-    }
-
-    <hr />
-
-    <div class="row">
-        @foreach (var prop in Model.Properties)
+        @if (!User.IsInRole("Agent"))
         {
 
-            <div class="col-lg-4 col-md-6 pb-4">
 
-                <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
-                    <div class="card-body px-3 pt-3 pb-1 row">
-                        <div class="col-7"><label class="text-left">@prop.Name</label></div>
-                        <div class="col-5"><label class="float-right"><span class="text-black-50 h5">@string.Format("{0:c0}", prop.Price)</span> / Month</label> </div>
-                    </div>
-                    <div>
+            <div class="upper">
 
-                        <img class="card-img-top img-fluid d-block mx-auto mb-3" src="https://wander.blob.core.windows.net/propertyimages/User @prop.Id/@prop.Main_Image" width="450" alt="Card image cap">
-                    </div>
-                    <div class="card-body p-1 px-3 row">
 
-                        <div class="col-6 border-0">
-                            <span class="badge p-2 text-dark text-">@prop.Address.Street , @prop.Address.City , @prop.Address.Province</span>
+                <div>
+                    Search
+
+                </div>
+                <div>
+                    <input type="search" />
+                </div>
+
+
+
+                <div>
+                    Category
+
+                </div>
+                <div>
+                    <select class="form-select" name="value">
+                        <option value="Condo">Condo</option>
+                        <option value="Apartment">Apartment</option>
+                        <option value="House">House]</option>
+                        <option value="Vacation Home">Vacation Home </option>
+
+
+                        <option disabled selected>--Select Category--</option>
+                    </select>
+
+                </div>
+
+
+
+                <div class="Sub">
+                    <div><input type="submit" /></div>
+                </div>
+
+
+
+
+            </div>
+        }
+
+        <hr />
+
+        <div class="row">
+            @foreach (var prop in Model.Properties)
+            {
+
+                <div class="col-lg-4 col-md-6 pb-4">
+
+                    <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
+                        <div class="card-body px-3 pt-3 pb-1 row">
+                            <div class="col-7"><label class="text-left">@prop.Name</label></div>
+                            <div class="col-5"><label class="float-right"><span class="text-black-50 h5">@string.Format("{0:c0}", prop.Price)</span> / Month</label> </div>
                         </div>
-                        <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
-                            <p> @prop.Description</p>
+                        <div>
+
+                            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="https://wander.blob.core.windows.net/propertyimages/User @prop.Id/@prop.Main_Image" width="450" alt="Card image cap">
                         </div>
+                        <div class="card-body p-1 px-3 row">
 
-                        <div class="info-bod">
-                            <div>
-                                @prop.Beds <i class="fa fa-bed" aria-hidden="true"></i>
+                            <div class="col-6 border-0">
+                                <span class="badge p-2 text-dark text-">@prop.Address.Street , @prop.Address.City , @prop.Address.Province</span>
                             </div>
-                            <div>
-                                @prop.Baths  <i class="fa fa-bath" aria-hidden="true"></i>
+                            <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
+                                <p> @prop.Description</p>
                             </div>
-                            <div>
-                                @prop.Size SQFT <i class="fa fa-square-o" aria-hidden="true"></i>
+
+                            <div class="info-bod">
+                                <div>
+                                    @prop.Beds <i class="fa fa-bed" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    @prop.Baths  <i class="fa fa-bath" aria-hidden="true"></i>
+                                </div>
+                                <div>
+                                    @prop.Size SQFT <i class="fa fa-square-o" aria-hidden="true"></i>
+                                </div>
                             </div>
+
+                            @if (User.IsInRole("Agent"))
+                            {
+                                <div class="col-12 p-1">
+                                    <a asp-controller="Property" asp-action="Upsert" asp-route-id="@prop.Id" class="btn btn-green form-control btn-sm p-2" style="height:40px">Edit Details</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-12 p-1">
+                                    <a asp-action="Details" asp-route-id="@prop.Id" class="btn btn-green form-control btn-sm p-2" style="height:40px">View Details</a>
+                                </div>
+                            }
+
                         </div>
-
-                        @if (User.IsInRole("Agent"))
-                        {
-                            <div class="col-12 p-1">
-                                <a asp-controller="Property" asp-action="Upsert" asp-route-id="@prop.Id" class="btn btn-green form-control btn-sm p-2" style="height:40px">Edit Details</a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-12 p-1">
-                                <a  asp-action="Details" asp-route-id="@prop.Id" class="btn btn-green form-control btn-sm p-2" style="height:40px">View Details</a>
-                            </div>
-                        }
-
                     </div>
                 </div>
-            </div>
 
 
-        }
+            }
+
+        </div>
+
+
+
+
+
+
+
+
 
     </div>
 
-
-
-
-
-
-
-
-
 </div>
-      
-

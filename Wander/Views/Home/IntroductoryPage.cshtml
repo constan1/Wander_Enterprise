@@ -1,36 +1,143 @@
-﻿
-<div class="Main_Bod">
-    <div class="Section-1">
+﻿@model Wander_Models.ViewModels.HomeViewModel
+@using Wander_Utilities
+
+<div class="Section-1">
+    <div class="container-2">
+
+
         <div class="Hollow-Bod">
-            <h1>Header 1</h1>
-            <p>Description</p>
+
+            <h2>Searching For The Best Rentals Just Got Easy</h2>
+
+            <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            </p>
+
             <br /><br />
 
-            <form>
-                <div class="Input-Type-Address">
-                    <div class="type-1"><input type="text" /></div>
-                    <div class="type-2"><input type="text" /></div>
-                    <div class="type-3"><input type="text" /></div>
-                </div>
-                <div class="Beds-Baths">
-                    <div class="Beds"><input type="text" /></div>
-                    <div class="Baths"><input type="text" /></div>
-                </div>
-                <div class="button"><input type="submit" /></div>
 
-            </form>
+                  <form method="post">
+                 
+                      <div class="Input-Type-Address">
+                        
+                          <div class="type-2"><input type="text" required name="City_" id="type-2-right" placeholder="City" /></div>
+                          <div class="type-3"><input type="text" required name="Province_" id="type-3-right" placeholder="Province" /></div>
+                      </div>
+                      <br />
+                      <div class="Beds-Baths">
+                          <div class="Beds">
+
+                              <select name="Beds" id="Beds_Width">
+                                  <option disabled selected>--Beds--</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                              </select>
+
+                          </div>
+
+                          <div class="Baths">
+                              <select name="Baths" id="Baths_Width">
+                                  <option disabled selected>--Baths--</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                              </select>
+                          </div>
+                      </div>
+                      <br />
+                      <div class="button_main_"><input type="submit" required id="button_main" /></div>
+
+
+                  </form>
 
         </div>
     </div>
-
-    <div class="Section-2">
-        <h2>Latest Listings</h2>
-        <div class=" =Listing-Bod">
-            <div class="Listing-1"> First Listing </div>
-            <div class="Listing-2"> Second Listing </div>
-            <div class="Listing-3"> Third Listing </div>
-        </div>
-    </div>
-
-
 </div>
+<br />
+<br />
+<div class="Section-2">
+    <div class="container-2">
+
+
+        <h3>Latest Listings</h3>
+
+        <div class="Listing-Bod">
+
+            <div class="container-2">
+
+
+                <div class="row">
+                    @if (Model.Prop_List.Count != 0)
+                    {
+
+
+                    @for (int i = Model.Prop_List.Count - 1; i >= Model.Prop_List.Count - 3; i--)
+                    {
+
+                        <div class="col-lg-4 col-md-6 pb-4">
+
+                            <div class="card bg-white rounded shadow-sm" style="border:1px solid #222">
+                                <div class="card-body px-3 pt-3 pb-1 row">
+                                    <div class="col-7"><label class="text-left">@Model.Prop_List[i].Name</label></div>
+                                    <div class="col-5"><label class="float-right"><span class="text-black-50 h5">@string.Format("{0:c0}", Model.Prop_List[i].Price)</span> / Month</label> </div>
+                                </div>
+                                <div>
+
+                                    <img class="card-img-top img-fluid d-block mx-auto mb-3" src="https://wander.blob.core.windows.net/propertyimages/User @Model.Prop_List[i].Id/@Model.Prop_List[i].Main_Image" width="450" alt="Card image cap">
+                                </div>
+                                <div class="card-body p-1 px-3 row">
+
+                                    <div class="col-6 border-0">
+                                        <span class="badge p-2 text-dark text-">@Model.Prop_List[i].Address.Street , @Model.Prop_List[i].Address.City , @Model.Prop_List[i].Address.Province</span>
+                                    </div>
+                                    <div class="col-12 pt-2" style="font-size:13px; text-align:justify">
+                                        <p> @Model.Prop_List[i].Description</p>
+                                    </div>
+
+                                    <div class="info-bod">
+                                        <div>
+                                            @Model.Prop_List[i].Beds <i class="fa fa-bed" aria-hidden="true"></i>
+                                        </div>
+                                        <div>
+                                            @Model.Prop_List[i].Baths  <i class="fa fa-bath" aria-hidden="true"></i>
+                                        </div>
+                                        <div>
+                                            @Model.Prop_List[i].Size SQFT <i class="fa fa-square-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+
+                                    @if (User.IsInRole("Agent"))
+                                    {
+                                        <div class="col-12 p-1">
+                                            <a asp-controller="Property" asp-action="Upsert" asp-route-id="@Model.Prop_List[i].Id" class="btn btn-green form-control btn-sm p-2" style="height:40px">Edit Details</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-12 p-1">
+                                            <a asp-action="Details" asp-route-id="@Model.Prop_List[i].Id" class="btn btn-green form-control btn-sm p-2" style="height:40px">View Details</a>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+

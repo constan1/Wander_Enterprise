@@ -1,6 +1,9 @@
 ﻿@model Wander_Models.Address
-
 <!--All Code By Andrei Constantinescu-->
+
+
+<div class="container">
+
 
 <form method="post" asp-action="Create">
     <div class="border p-3 bg-white">
@@ -68,9 +71,11 @@
     </div>
 </form>
 
+
+</div>
 @section Scripts{
 
     @{
         <partial name="_ValidationScriptsPartial" />
-}
+    }
 }

@@ -11,10 +11,13 @@ namespace Wander_Models.ViewModels
     public class HomeViewModel
     {
         public IEnumerable<Property> Properties { get; set; }
+        
+        public List<Property>Prop_List { get; set; }
 
      
         public Property prop { get; set; }
 
+        public string flag { get; set; }
    
     }
 }

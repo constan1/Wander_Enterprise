@@ -8,300 +8,305 @@
 
 
 }
-<form method="post" enctype="multipart/form-data">
 
 
-    @if (Model.Property.Id != 0)
-    {
-        title = "Edit Product";
-        <input asp-for="Property.Id" hidden />
-    }
+<div class="container">
 
-    <div class="border p-3 bg-white">
-        <div asp-validation-summary="All" class="text-black-50 danger"></div>
-        <div class="form-group row">
-            <h2 class="test-info pl-3">@title</h2>
-        </div>
-        <div class="row">
-            <div class="col-8">
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.Name"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Property.Name" class="form-control" />
-                        <span asp-validation-for="Property.Name" class="test-info danger">
+    <form method="post" enctype="multipart/form-data">
 
 
-                        </span>
-                    </div>
+        @if (Model.Property.Id != 0)
+        {
+            title = "Edit Product";
+            <input asp-for="Property.Id" hidden />
+        }
 
-                </div>
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.Description"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Property.Description" class="form-control" />
-                        <span asp-validation-for="Property.Description" class="text danger">
-
-                        </span>
-                    </div>
-
-                </div>
-
-
-
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.Baths"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Property.Baths" class="form-control" />
-                        <span asp-validation-for="Property.Baths" class="text danger">
-
-                        </span>
-                    </div>
-
-                </div>
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.Beds"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Property.Beds" class="form-control" />
-                        <span asp-validation-for="Property.Beds" class="text danger">
-
-                        </span>
-                    </div>
-
-                </div>
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.Detailed_Description"></label>
-                    </div>
-                    <div class="col-8">
-                        <textarea asp-for="Property.Detailed_Description" class="form-control summernote"> </textarea>
-                        <span asp-validation-for="Property.Detailed_Description" class="text danger">
-
-                        </span>
-                    </div>
-
-                </div>
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label></label>
-                    </div>
-                    <div class="col-8">
-                        <select class="form-select" name="value">
-                            <option value="@Model.Type_[0]">@Model.Type_[0]</option>
-                            <option value="@Model.Type_[1]">@Model.Type_[1]</option>
-                            <option value="@Model.Type_[2]">@Model.Type_[2]</option>
-                            <option value="@Model.Type_[2]">@Model.Type_[3]</option>
-                            <option disabled selected>--Select Category--</option>
-                        </select>
-
-                    </div>
-
-                </div>
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.AddressId"></label>
-                    </div>
-                    <div class="col-8">
-                        <select asp-for="Property.AddressId" asp-items="@Model.AddressList" class="form-select">
-                            <option disabled selected>--Select Category--</option>
-                        </select>
-                        <span asp-validation-for="Property.AddressId" class="text danger">
-
-                        </span>
-                    </div>
-
-                </div>
-
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        <label asp-for="Property.Price"></label>
-                    </div>
-                    <div class="col-8">
-                        <input asp-for="Property.Price" class="form-control" />
-                        <span asp-validation-for="Property.Price" class="text danger">
-
-                        </span>
-                    </div>
-
-                </div>
-
-                <div class="form-group row py-2">
-                    <div class="col-4">
-                        Your Main Image Image
-                    </div>
-                    <div class="col-8">
-                        <input required type="file" name="files" id="uploadBox" multiple class="form-control " />
-                        
-
-
-                    </div>
-                    <div class="col-4">
-                        Secondary Image
-                    </div>
-                    <div class="col-8">
-                        <input required type="file" name="files" id="uploadBox2" multiple class="form-control " />
-
-
-                    </div>
-                    <div class="col-4">
-                        Third Image
-                    </div>
-                    <div class="col-8">
-                        <input required type="file" name="files" id="uploadBox3" multiple class="form-control" />
-
-
-                    </div>
-                    <div class="col-4">
-                        Fourth Image
-                    </div>
-                    <div class="col-8">
-                        <input required type="file" name="files" id="uploadBox4" multiple class="form-control" />
-
-
-                    </div>
-                    <div class="col-4">
-                        Fifth Image
-                    </div>
-                    <div class="col-8">
-                        <input required type="file" name="files" id="uploadBox5" value="@Model.Property.Fifth_Image" multiple class="form-control" />
-
-                    </div>
-
-                </div>
-
-                <div class="form-group row py-2">
-
-                    <div class="col-8 offset-4 row">
-
-                        <div class="col">
-
-                            @if (Model.Property.Id != 0)
-                            {
-                                <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" value="Update" />
-                            }
-
-                            else
-                            {
-                                <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" />
-                            }
+        <div class=" border p-3 bg-white">
+            <div asp-validation-summary="All" class="text-black-50 danger"></div>
+            <div class="form-group row">
+                <h2 class="test-info pl-3">@title</h2>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.Name"></label>
                         </div>
+                        <div class="col-8">
+                            <input asp-for="Property.Name" class="form-control" />
+                            <span asp-validation-for="Property.Name" class="test-info danger">
 
-                        <div class="col">
-                            <a asp-action="Index" class="btn btn-success w-100">
-                                Back
-                            </a>
+
+                            </span>
                         </div>
 
                     </div>
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.Description"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Property.Description" class="form-control" />
+                            <span asp-validation-for="Property.Description" class="text danger">
+
+                            </span>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.Baths"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Property.Baths" class="form-control" />
+                            <span asp-validation-for="Property.Baths" class="text danger">
+
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.Beds"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Property.Beds" class="form-control" />
+                            <span asp-validation-for="Property.Beds" class="text danger">
+
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.Detailed_Description"></label>
+                        </div>
+                        <div class="col-8">
+                            <textarea asp-for="Property.Detailed_Description" class="form-control summernote"> </textarea>
+                            <span asp-validation-for="Property.Detailed_Description" class="text danger">
+
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label></label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-select" name="value">
+                                <option value="@Model.Type_[0]">@Model.Type_[0]</option>
+                                <option value="@Model.Type_[1]">@Model.Type_[1]</option>
+                                <option value="@Model.Type_[2]">@Model.Type_[2]</option>
+                                <option value="@Model.Type_[2]">@Model.Type_[3]</option>
+                                <option disabled selected>--Select Category--</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.AddressId"></label>
+                        </div>
+                        <div class="col-8">
+                            <select asp-for="Property.AddressId" asp-items="@Model.AddressList" class="form-select">
+                                <option disabled selected>--Select Category--</option>
+                            </select>
+                            <span asp-validation-for="Property.AddressId" class="text danger">
+
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            <label asp-for="Property.Price"></label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Property.Price" class="form-control" />
+                            <span asp-validation-for="Property.Price" class="text danger">
+
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row py-2">
+                        <div class="col-4">
+                            Your Main Image Image
+                        </div>
+                        <div class="col-8">
+                            <input required type="file" name="files" id="uploadBox" multiple class="form-control " />
+
+
+
+                        </div>
+                        <div class="col-4">
+                            Secondary Image
+                        </div>
+                        <div class="col-8">
+                            <input required type="file" name="files" id="uploadBox2" multiple class="form-control " />
+
+
+                        </div>
+                        <div class="col-4">
+                            Third Image
+                        </div>
+                        <div class="col-8">
+                            <input required type="file" name="files" id="uploadBox3" multiple class="form-control" />
+
+
+                        </div>
+                        <div class="col-4">
+                            Fourth Image
+                        </div>
+                        <div class="col-8">
+                            <input required type="file" name="files" id="uploadBox4" multiple class="form-control" />
+
+
+                        </div>
+                        <div class="col-4">
+                            Fifth Image
+                        </div>
+                        <div class="col-8">
+                            <input required type="file" name="files" id="uploadBox5" value="@Model.Property.Fifth_Image" multiple class="form-control" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row py-2">
+
+                        <div class="col-8 offset-4 row">
+
+                            <div class="col">
+
+                                @if (Model.Property.Id != 0)
+                                {
+                                    <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" value="Update" />
+                                }
+
+                                else
+                                {
+                                    <input type="submit" onclick="return validateInput()" class="btn btn-primary w-100" />
+                                }
+                            </div>
+
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success w-100">
+                                    Back
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
                 </div>
 
 
 
             </div>
-
-
-
         </div>
+    </form>
+
     </div>
-</form>
+    @section Scripts{
 
-
-@section Scripts{
-
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-    <script>
-
-        $(document).ready(function () {
-            $('.summernote').summernote({
-                height: 275
-            });
-        });
-
-
-        function stopUpdatingProgressInidicator() {
-            clearInterval(intervalId);
+        @{
+            <partial name="_ValidationScriptsPartial" />
         }
+        <script>
 
-
-        function validateInput() {
-            if (document.getElementById("uploadBox").value == "") {
-
-
-                Swal.fire(
-                    'Error!',
-                    'Please upload a Main Image!',
-                    'error'
-                )
-                       }
-
-
-
-
-
-            else if (document.getElementById("uploadBox2").value == "") {
-                Swal.fire(
-                    'Error!',
-                    'Please upload a Secondary Image!',
-                    'error'
-                )
-                return false;
-            }
-            else if (document.getElementById("uploadBox3").value == "") {
-                Swal.fire(
-                    'Error!',
-                    'Please upload a Third Image!',
-                    'error'
-                )
-                return false;
-            }
-            else if (document.getElementById("uploadBox4").value == "") {
-                Swal.fire(
-                    'Error!',
-                    'Please upload a Fourth Image!',
-                    'error'
-
-                )
-                return false;
-            }
-            else if (document.getElementById("uploadBox5").value == "") {
-                Swal.fire(
-                    'Error!',
-                    'Please upload a Fifth  Image!',
-                    'error'
-                )
-                return false;
-            }
-            else {
-
-
-                Swal.fire({
-
-                    title: 'Please Wait While We Upload Your Images!',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-
-                    html: "<div class='progress_main'><div class='progress-value'></div></div>",
-
-                }).then((data) => {
-
-
-
+            $(document).ready(function () {
+                $('.summernote').summernote({
+                    height: 275
                 });
-                return true;
+            });
+
+
+            function stopUpdatingProgressInidicator() {
+                clearInterval(intervalId);
             }
 
 
-        }
-    </script>
-}
+            function validateInput() {
+                if (document.getElementById("uploadBox").value == "") {
+
+
+                    Swal.fire(
+                        'Error!',
+                        'Please upload a Main Image!',
+                        'error'
+                    )
+                }
+
+
+
+
+
+                else if (document.getElementById("uploadBox2").value == "") {
+                    Swal.fire(
+                        'Error!',
+                        'Please upload a Secondary Image!',
+                        'error'
+                    )
+                    return false;
+                }
+                else if (document.getElementById("uploadBox3").value == "") {
+                    Swal.fire(
+                        'Error!',
+                        'Please upload a Third Image!',
+                        'error'
+                    )
+                    return false;
+                }
+                else if (document.getElementById("uploadBox4").value == "") {
+                    Swal.fire(
+                        'Error!',
+                        'Please upload a Fourth Image!',
+                        'error'
+
+                    )
+                    return false;
+                }
+                else if (document.getElementById("uploadBox5").value == "") {
+                    Swal.fire(
+                        'Error!',
+                        'Please upload a Fifth  Image!',
+                        'error'
+                    )
+                    return false;
+                }
+                else {
+
+
+                    Swal.fire({
+
+                        title: 'Please Wait While We Upload Your Images!',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+
+                        html: "<div class='progress_main'><div class='progress-value'></div></div>",
+
+                    }).then((data) => {
+
+
+
+                    });
+                    return true;
+                }
+
+
+            }
+        </script>
+    }
+
