@@ -226,32 +226,27 @@ section {
 .Input-Type-Address {
     display: flex;
     flex-direction: row;
-}
-.type-1 {
-  
-    width: 144px;
     
-}
-#type-1-right {
-    width: 144px;
-    margin-left: 5px;
+   
 }
 
+
 .type-2 {
-    width: 144px;
-    margin-left: 5px;
+    width: 210px;
+   
 }
-#type-2-right
-{
-    width:144px;
+#type-2-right {
+    width: 216px;
+  
+    
 }
 
 .type-3 {
-    width: 144px;
-    margin-left: 5px;
+    width: 265px;
+    
 }
 #type-3-right {
-    width: 144px;
+    width: 250px;
 }
 .Beds-Baths {
    
@@ -339,8 +334,8 @@ section {
 .container-details{}
 @media (min-width:576px)
 {.container,.container-2{max-width:540px}.upper{display:flex; justify-content:center}}
-@media (min-width:768px){.container,.container-2{max-width:720px;}.Input-Type-Address{margin-left:85px;}.Beds-Baths{margin-left:75px;}}
-@media (min-width:992px){.container,.container-2{max-width:960px}.Input-Type-Address{margin-left:220px;}.Beds-Baths{margin-left:200px;}}
+@media (min-width:768px){.container,.container-2{max-width:720px;}.Input-Type-Address{margin-left:84px;}.Beds-Baths{margin-left:75px;}}
+@media (min-width:992px){.container,.container-2{max-width:960px}.Input-Type-Address{margin-left:215px;}.Beds-Baths{margin-left:200px;}}
 @media (min-width:1200px){.container,.container-2{max-width:1140px}.Input-Type-Address{margin-left:316px;}.Beds-Baths{margin-left:290px;}}
 .container-fluid{width:100%;padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}
 .row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px}

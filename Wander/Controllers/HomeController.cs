@@ -66,7 +66,7 @@ namespace Wander.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string City_, string Province_, string Beds, string Baths)
+        public IActionResult Index(string City_, string Province_, string Beds, string Baths, string? value)
         {
 
             if (User.IsInRole("Agent"))
@@ -84,7 +84,7 @@ namespace Wander.Controllers
             }
             else
             {
-                if(City_!=null)
+                if(City_!=null && value == null)
                 {
                     HomeViewModel HomeVM_ = new HomeViewModel()
                     {
@@ -95,10 +95,19 @@ namespace Wander.Controllers
                     return View(HomeVM_);
 
                 }
+                else if(City_!=null && value !=null)
+                {
+                    HomeViewModel HomeVM_ = new HomeViewModel()
+                    {
+
+                        Properties = _propRepo.GetAll(u => u.Address.City == City_ &&
+                        u.Type == value, includeProperties: "Address")
+                    };
+                    return View(HomeVM_);
+                }
 
                 HomeViewModel HomeVM = new HomeViewModel()
                 {
-
                     Properties = _propRepo.GetAll(includeProperties: "Address")
             };
 
@@ -106,6 +115,13 @@ namespace Wander.Controllers
                 return View(HomeVM);
             }
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult IndexPost(string City_, string value)
+        {
+            return RedirectToAction("Index", new { City_, value });
         }
 
         public IActionResult About()
